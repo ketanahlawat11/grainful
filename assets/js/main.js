@@ -19,14 +19,13 @@
 
   /* ---------- Hero (cominvi.com.mx): intro, then grainful.in's three photos switch every 6s. Each new photo opens out
      of a small white frame in the middle of the screen (clip-path + frame, 1.8s) while it settles from 120%; the shown
-     photo drifts slowly. Pause / Play button; switching also waits while the tab is hidden or the hero is off screen.
+     photo drifts slowly. Switching waits while the tab is hidden or the hero is off screen.
      The photos move down at 30% of the scroll speed. Reduced motion: no intro, no switching, no parallax. ---------- */
   var hero = document.querySelector('[data-hero]');
   if (hero) {
     var hSlides = Array.prototype.slice.call(hero.querySelectorAll('.hero-slide'));
     var hBg = hero.querySelector('[data-hero-bg]'), hFrame = hero.querySelector('.hero-frame');
-    var hPause = hero.querySelector('[data-hero-pause]'), hPauseLabel = hero.querySelector('[data-hero-pause-label]');
-    var hCur = 0, hTimer = 0, hBusy = false, hPaused = false, hSeen = true;
+    var hCur = 0, hTimer = 0, hBusy = false, hSeen = true;
     var DWELL = 6000, OPEN = 1800;
     var setFrameBox = function () {
       // a 3:2 frame, 16rem wide (half the width on small screens), in the middle of the hero
@@ -47,7 +46,7 @@
         if (prev !== next) prev.classList.remove('is-on', 'is-drift');
         next.classList.remove('is-enter', 'is-go');
         next.classList.add('is-on');
-        if (!hPaused) next.classList.add('is-drift');
+        next.classList.add('is-drift');
         hFrame.classList.remove('is-on', 'is-go');
         hCur = k; hBusy = false;
         if (done) done();
@@ -55,7 +54,7 @@
     };
     var schedule = function () {
       window.clearTimeout(hTimer);
-      if (hPaused || !hSeen || document.hidden || hBusy) return;
+      if (!hSeen || document.hidden || hBusy) return;
       hTimer = window.setTimeout(function () { openSlide((hCur + 1) % hSlides.length, schedule); }, DWELL);
     };
     if (!reduceMotion && hSlides.length > 1) {
@@ -71,14 +70,6 @@
       };
       if (hFirst.complete) hStart(); else { hFirst.addEventListener('load', hStart); hFirst.addEventListener('error', hStart); }
       window.setTimeout(hStart, 1500);
-      hPause.hidden = false;
-      hPause.addEventListener('click', function () {
-        hPaused = !hPaused;
-        hPause.classList.toggle('is-paused', hPaused);
-        hPauseLabel.textContent = hPaused ? 'Play' : 'Pause';
-        hSlides[hCur].classList.toggle('is-drift', !hPaused);
-        schedule();
-      });
       document.addEventListener('visibilitychange', schedule);
       if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (en) { hSeen = en[0].isIntersecting; schedule(); }).observe(hero);
@@ -293,7 +284,7 @@
        0.2 – 1.1     it shrinks into the title column (scroll-linked); the blurred first photo fades in
        0.75          the intro rises in beside it
        stage k       from t = 1.75 + 0.9 (k - 1) its panel wipes up in full (1s, whatever the scrolling does), the photo
-                     settling from 112%, while the title, description and number swap line by line; scrolling back reverses it
+                     settling from 112%, while the title and description swap line by line; scrolling back reverses it
        7.2 – 8.2     the stage dims while Our Assurance slides over it
      Everything else (phones, reduced motion, no JS) is a plain list. ---------- */
   var wk = document.querySelector('[data-work]');
@@ -302,7 +293,6 @@
     var wkIntro = wk.querySelector('.wk-intro');
     var wkTitles = Array.prototype.slice.call(wk.querySelectorAll('.wk-t'));
     var wkDescs = Array.prototype.slice.call(wk.querySelectorAll('.wk-d'));
-    var wkNums = Array.prototype.slice.call(wk.querySelectorAll('.wk-n'));
     var wkTexts = Array.prototype.slice.call(wk.querySelectorAll('[data-wk-text]'));
     var wkOn = false, wkTick = false, wkState = -2, wkSplitW = 0, wkPanels = [];
     var wkClamp = function (v) { return Math.max(0, Math.min(1, v)); };
@@ -322,7 +312,6 @@
           inn.style.setProperty('--d', (i * 0.035).toFixed(3) + 's'); m.appendChild(inn); el.appendChild(m);
         });
       });
-      wkNums.forEach(function (n) { if (!n.querySelector('.wk-ln')) { var m = document.createElement('span'); m.className = 'wk-ln'; var inn = document.createElement('span'); inn.className = 'wk-ln-in'; while (n.firstChild) inn.appendChild(n.firstChild); m.appendChild(inn); n.appendChild(m); } });
     };
     var wkUnsplit = function () { wkTexts.forEach(function (el, k) { el.textContent = wkOrig[k]; }); wkSplitW = 0; };
     var wkBuild = function () {
@@ -350,7 +339,6 @@
       wkBig.classList.toggle('is-gone', st >= 1);
       wkSwap([wkIntro].concat(wkDescs), st >= 0 ? st : -1);
       wkSwap(wkTitles, st >= 1 ? st - 1 : -1);
-      wkSwap(wkNums, st >= 1 ? st - 1 : -1);
     };
     var wkUpdate = function () {
       wkTick = false;
@@ -369,7 +357,7 @@
       var st = t < -0.55 ? -2 : t < 0.75 ? -1 : 0; // the title rises as it comes into view, not after an empty band
       for (var i = 1; i < wkPanels.length; i++) {
         // past its point a stage's panel plays its whole wipe (CSS transition), so it never stops halfway when the
-        // scrolling stops; scrolling back plays it in reverse. Text, photo and number change together.
+        // scrolling stops; scrolling back plays it in reverse. Text and photo change together.
         var on = t >= 1.75 + 0.9 * (i - 1);
         wkPanels[i].classList.toggle('is-shown', on);
         if (on) st = i;
@@ -384,7 +372,7 @@
         wkOn = want;
         wk.classList.toggle('is-pin', wkOn);
         if (wkOn) { wkBuild(); wkState = -2; }
-        else { wkUnsplit(); wkTexts.concat(wkNums).forEach(function (el) { el.classList.remove('is-on', 'is-out'); }); wkState = -2; }
+        else { wkUnsplit(); wkTexts.forEach(function (el) { el.classList.remove('is-on', 'is-out'); }); wkState = -2; }
       }
       if (wkOn) { wkSplit(); var cur = wkState; wkState = -3; wkSetState(cur); }
       wkReq();
@@ -494,6 +482,19 @@
     window.addEventListener('scroll', sReq, { passive: true });
     window.addEventListener('resize', sReq);
     sUpdate();
+  }
+
+  /* ---------- Sticky left columns beside the stacking cards: one taller than the screen sticks by its foot instead of
+     its top, so its photo comes into view and stays while the cards pass (at top: 0 the foot would stay hidden). ---- */
+  var asLefts = Array.prototype.slice.call(document.querySelectorAll('.as-left'));
+  if (asLefts.length) {
+    var asFit = function () {
+      asLefts.forEach(function (el) { el.style.top = Math.min(0, window.innerHeight - el.offsetHeight) + 'px'; });
+    };
+    window.addEventListener('resize', asFit);
+    window.addEventListener('load', asFit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(asFit);
+    asFit();
   }
 
   /* ---------- Contact form (Contact Us page): the site is static, so sending opens the visitor's email app with the

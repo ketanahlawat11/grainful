@@ -12,8 +12,9 @@
    White on red is 4.7:1. Gold is never used for text.
    ========================================================================== */
 
-@font-face { font-family: "Geist"; src: url("../fonts/Geist-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "Geist Mono"; src: url("../fonts/GeistMono-Variable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+/* Type (client spec, Oct 2026): Manrope for headings, DM Sans for text and labels. Both SIL OFL, latin subset. */
+@font-face { font-family: "Manrope"; src: url("../fonts/Manrope-Variable.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "DM Sans"; src: url("../fonts/DMSans-Variable.woff2") format("woff2"); font-weight: 100 1000; font-display: swap; }
 
 :root {
   --green: #439546;
@@ -26,8 +27,15 @@
   --mist: #f2f2f2;
   --white: #ffffff;
   --line: rgba(28, 28, 28, .12);
-  --sans: "Geist", "Helvetica Neue", Arial, sans-serif;
-  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --head: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  --sans: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: var(--sans); /* the small uppercase labels were Geist Mono; they are now DM Sans eyebrows */
+  /* the type scale: desktop (1440px) / phone (390px), fluid in between */
+  --fs-h1: clamp(2.875rem, 1.9rem + 4vw, 5.5rem);          /* 88 / 46 */
+  --fs-h2: clamp(2.1875rem, 1.7rem + 2vw, 3.5rem);         /* 56 / 35 */
+  --fs-h3: clamp(1.3125rem, 1.243rem + .286vw, 1.5rem);    /* 24 / 21 */
+  --fs-body: 1rem;                                         /* 16 / 16 */
+  --fs-eyebrow: clamp(.75rem, .727rem + .095vw, .8125rem); /* 13 / 12 */
   --pad: 2rem;
   --gap: 6.5rem; /* the space at the top and foot of a home page section (was 9rem: too much between sections) */
   --ease: cubic-bezier(.22, .61, .36, 1);
@@ -35,7 +43,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: 1rem; line-height: 1.5; letter-spacing: -.01em; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--sans); font-size: var(--fs-body); line-height: 1.6; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, p, dl, dd, figure, blockquote, ul, ol { margin: 0; }
 ul[role="list"], ol[role="list"] { padding: 0; list-style: none; }
@@ -125,11 +133,6 @@ button { font: inherit; color: inherit; }
 .hero-foot { max-width: 26rem; font-size: 1rem; font-weight: 500; line-height: 1.5; }
 .hero-side .btn { margin-top: .5rem; }
 .hero-bottom { grid-column: 1 / 13; grid-row: 4; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1rem; align-items: end; }
-.hero-pause { grid-column: 1 / 5; justify-self: start; display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .75rem; border: 1px solid rgba(255, 255, 255, .35); border-radius: 4px; background: rgba(10, 24, 11, .25); font-family: var(--mono); font-size: .75rem; line-height: 1; letter-spacing: .02em; text-transform: uppercase; color: var(--white); cursor: pointer; transition: background-color .3s var(--ease); }
-.hero-pause:hover { background: rgba(10, 24, 11, .55); }
-.hero-pause[hidden] { display: none; }
-.hero-pause-ico { width: .5rem; height: .625rem; border-left: 2px solid currentColor; border-right: 2px solid currentColor; } /* pause: two bars */
-.hero-pause.is-paused .hero-pause-ico { width: 0; height: 0; border-top: .3125rem solid transparent; border-bottom: .3125rem solid transparent; border-left: .5rem solid currentColor; border-right: 0; } /* play: a triangle */
 .hero-cards { grid-column: 9 / 13; display: flex; gap: 1rem; }
 .hcard { position: relative; flex: 1 1 0; min-width: 0; display: flex; align-items: flex-end; aspect-ratio: 3 / 2; padding: .5rem; overflow: hidden; border: 1px solid rgba(255, 255, 255, .2); border-radius: 4px; color: var(--ink); text-decoration: none; }
 .hcard img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -145,16 +148,16 @@ button { font: inherit; color: inherit; }
 /* intro (JS only): the photo opens from the frame, the lines rise, the text fades up, the cards rise from below */
 .js .hero:not(.is-intro) .hero-slide { visibility: hidden; } /* the first photo waits for its framed opening */
 .js .hero:not(.is-intro) .hl-in { transform: translateY(105%); }
-.js .hero:not(.is-intro) .hero-foot, .js .hero:not(.is-intro) .hero-side .btn, .js .hero:not(.is-intro) .hero-pause { opacity: 0; transform: translateY(1.5rem); }
+.js .hero:not(.is-intro) .hero-foot, .js .hero:not(.is-intro) .hero-side .btn { opacity: 0; transform: translateY(1.5rem); }
 .js .hero:not(.is-intro) .hcard:nth-child(1) { transform: translateY(calc(110% + 1.5rem)); } /* fully below the hero edge */
 .js .hero:not(.is-intro) .hcard:nth-child(2) { transform: translateY(calc(120% + 1.5rem)); }
-.hero.is-intro .hl-in, .hero.is-intro .hero-foot, .hero.is-intro .hero-side .btn, .hero.is-intro .hero-pause, .hero.is-intro .hcard { opacity: 1; transform: none; transition: transform 1.2s var(--hero-ease), opacity 1.2s var(--hero-ease); }
+.hero.is-intro .hl-in, .hero.is-intro .hero-foot, .hero.is-intro .hero-side .btn, .hero.is-intro .hcard { opacity: 1; transform: none; transition: transform 1.2s var(--hero-ease), opacity 1.2s var(--hero-ease); }
 .hero.is-intro .hero-title .hl:nth-child(1) .hl-in { transition-delay: .5s; }
 .hero.is-intro .hero-title .hl:nth-child(2) .hl-in { transition-delay: .6s; }
 .hero.is-intro .hero-label .hl-in { transition-delay: .65s; }
 .hero.is-intro .hero-foot { transition-delay: .75s; }
 .hero.is-intro .hero-side .btn { transition-delay: .85s; }
-.hero.is-intro .hcard, .hero.is-intro .hero-pause { transition-delay: .9s; }
+.hero.is-intro .hcard { transition-delay: .9s; }
 .hero.is-intro .hcard:nth-child(2) { transition-delay: 1s; }
 .hero.is-intro .hcard:hover, .hero.is-intro .hcard:focus-visible { transition-delay: 0s; }
 .hero.is-static .hl-in, .hero.is-static .hero-foot, .hero.is-static .hero-side .btn, .hero.is-static .hcard { transition: none; }
@@ -370,12 +373,11 @@ button { font: inherit; color: inherit; }
 .wk-big-in { display: block; }
 .wk-intro { max-width: 40rem; margin-top: 2rem; font-size: clamp(1.125rem, 1.5vw, 1.375rem); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; color: var(--ink); }
 .work .wk-list { display: grid; gap: 3.5rem; margin-top: 4rem; padding: 0; }
-.wk-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto auto 1fr; column-gap: 3rem; row-gap: .75rem; align-items: start; }
-.wk-photo { grid-row: 1 / 4; margin: 0; overflow: hidden; border-radius: .5rem; }
+.wk-step { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto 1fr; column-gap: 3rem; row-gap: .75rem; align-items: start; }
+.wk-photo { grid-row: 1 / 3; margin: 0; overflow: hidden; border-radius: .5rem; }
 .wk-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-.wk-n { grid-column: 2; grid-row: 1; color: var(--green); }
-.wk-t { grid-column: 2; grid-row: 2; font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -.045em; color: var(--green); }
-.wk-d { grid-column: 2; grid-row: 3; max-width: 36rem; font-size: 1.0625rem; line-height: 1.6; color: var(--ink); }
+.wk-t { grid-column: 2; grid-row: 1; font-size: clamp(1.75rem, 2.6vw, 2.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -.045em; color: var(--green); }
+.wk-d { grid-column: 2; grid-row: 2; max-width: 36rem; font-size: 1.0625rem; line-height: 1.6; color: var(--ink); }
 
 /* pinned mode */
 .work.is-pin { height: 920vh; padding: 0; }
@@ -400,12 +402,11 @@ button { font: inherit; color: inherit; }
 .work.is-pin .wk-photo { display: none; }
 .work.is-pin .wk-intro, .work.is-pin .wk-d { grid-column: 3; grid-row: 1; max-width: 32rem; margin: 0; font-size: clamp(1.25rem, 1.65vw, 1.625rem); font-weight: 500; line-height: 1.3; letter-spacing: -.03em; color: var(--ink); }
 .work.is-pin .wk-t { grid-column: 2; grid-row: 1; padding: 0 1.5rem; text-align: center; font-size: clamp(1.75rem, 2.4vw, 2.5rem); }
-.work.is-pin .wk-n { grid-column: 3; grid-row: 2; margin-top: 2rem; }
-.work.is-pin [data-wk-text], .work.is-pin .wk-n { visibility: hidden; }
+.work.is-pin [data-wk-text] { visibility: hidden; }
 .work.is-pin .is-on, .work.is-pin .is-out { visibility: visible; }
 .wk-ln { display: block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; }
 .wk-ln-in { display: block; transform: translateY(110%); transition: transform .65s var(--says-ease); transition-delay: var(--d, 0s); }
-.is-on > .wk-ln > .wk-ln-in, .wk-n.is-on .wk-ln-in { transform: none; transition-delay: calc(var(--d, 0s) + .05s); } /* in step with the photo wipe */
+.is-on > .wk-ln > .wk-ln-in { transform: none; transition-delay: calc(var(--d, 0s) + .05s); } /* in step with the photo wipe */
 .work.is-pin .wk-dim { display: block; position: absolute; inset: 0; z-index: 3; background: #0e1a0f; opacity: var(--dim, 0); pointer-events: none; }
 .work.is-pin + .assure { position: relative; z-index: 2; margin-top: -100vh; } /* slides over the stage's last screen */
 
@@ -592,7 +593,7 @@ button { font: inherit; color: inherit; }
   .hero-title { grid-column: 1; grid-row: 1; align-self: start; }
   .hero-side { grid-column: 1; grid-row: 3; padding-bottom: 1.5rem; }
   .hero-bottom { grid-column: 1; grid-template-columns: minmax(0, 1fr); row-gap: .75rem; }
-  .hero-pause, .hero-cards { grid-column: 1; }
+  .hero-cards { grid-column: 1; }
   .hero-cards { gap: .5rem; }
   /* Customers Love Us: one review under another */
   .says .says-grid { grid-template-columns: minmax(0, 1fr); max-width: 36rem; }
@@ -626,9 +627,8 @@ button { font: inherit; color: inherit; }
   /* How We Work list: photo above the text */
   .wk-step { grid-template-columns: minmax(0, 1fr); }
   .wk-photo { grid-row: auto; margin-bottom: .75rem; }
-  .wk-n, .wk-t, .wk-d { grid-column: 1; grid-row: auto; }
-  .wk-photo { order: -2; }
-  .wk-n { order: -1; } /* the number above the title, as on wide screens */
+  .wk-t, .wk-d { grid-column: 1; grid-row: auto; }
+  .wk-photo { order: -1; }
   .work .wk-list { gap: 3rem; margin-top: 3rem; }
   .ftr-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .ftr-grid > :last-child { grid-column: 1 / -1; }
@@ -1220,13 +1220,17 @@ main.inner .assure.pg-stack { padding-bottom: 0; }
 .rail-sec.is-pin { padding: 0; }
 .rail-sec.is-pin .rail-stage { position: sticky; top: 0; display: flex; flex-direction: column; justify-content: flex-start; height: 100vh; padding-top: 6.5rem; overflow: hidden; } /* from just under the 5rem header */
 .rail-sec.is-pin ul.rail { overflow: visible; scroll-snap-type: none; padding-bottom: 0; will-change: transform; }
-/* short screens: the held stage tightens to fit one screen — the heading a step smaller, the cards a little wider (their
-   text wraps less), the photos a wider crop */
+/* short screens: the held stage tightens to fit one screen — the heading takes the row's full width (two lines at the
+   H2 size, not three), the cards a little wider (their text wraps less), the photos a wider crop */
 @media (max-height: 960px) {
   .rail-sec.is-pin .rail-head { margin-bottom: 1.75rem; }
-  .rail-sec.is-pin .rail-head .pg-stmt { max-width: 46rem; font-size: clamp(1.5rem, 2.4vw, 2.25rem); }
+  .rail-sec.is-pin .rail-head > :first-child { flex: 1; }
+  .rail-sec.is-pin .rail-head .pg-stmt { max-width: none; }
   .rail-sec.is-pin .rail-card { flex-basis: clamp(19rem, 30vw, 25rem); }
   .rail-sec.is-pin .rail-img img { aspect-ratio: 2 / 1; }
+}
+@media (max-height: 820px) {
+  .rail-sec.is-pin .rail-img img { aspect-ratio: 9 / 4; } /* 1280 x 800 */
 }
 @media (max-height: 780px) {
   .rail-sec.is-pin .rail-img img { aspect-ratio: 5 / 2; }
@@ -1532,4 +1536,119 @@ main.inner .assure.pg-stack { padding-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .js .acc-more, .acc-plus, .bento-img, .js .bento-more, .svc2-img img, .pg-fill .fw { transition: none !important; }
+}
+
+/* Home page About: an odd card out at the end (five cards since the ghee joined) takes the full row */
+.ab-cards > .ab-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Our Products' ghee panel: the two packs under the closing line, each on a white tile with its sizes */
+.gh-mini { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+.gh-mini li { display: flex; align-items: center; gap: .875rem; padding: .625rem .875rem .625rem .625rem; border-radius: .75rem; background: rgba(255, 255, 255, .9); }
+.gh-mini img { flex: none; width: 4.5rem; height: 4.5rem; object-fit: contain; }
+.gh-mini span { display: flex; flex-direction: column; gap: .125rem; color: var(--grey); }
+.gh-mini b { font-weight: 600; color: var(--ink); }
+
+/* ==========================================================================
+   Natural Wonder Ghee page: built from the rice pages' variety stages (.pg-vgroup, .vg-*). The pack photos are shot
+   on white, so in a pack stage the held frame and the phone photos show the whole pack on white instead of filling
+   the frame and cropping it. Then the jar labels' nutrition facts and the box back's storage list.
+   ========================================================================== */
+.pg-vgroup--pack .vg-frame { background: var(--white); }
+.pg-sec:not(.pg-sec--mist).pg-vgroup--pack .vg-frame { box-shadow: inset 0 0 0 1px var(--line); }
+.pg-vgroup--pack .vg-layer { padding: clamp(1.5rem, 4vw, 3.5rem); object-fit: contain; }
+
+.gh-nf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; align-items: start; }
+.gh-facts { display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 1rem; background: #144618; color: var(--white); }
+.gh-facts-p { margin-top: .25rem; color: rgba(255, 255, 255, .8); }
+.gh-facts dl { margin: 1.25rem 0 1.5rem; }
+.gh-facts dl > div { display: flex; justify-content: space-between; gap: 1rem; padding: .625rem 0; border-top: 1px solid rgba(255, 255, 255, .2); }
+.gh-facts dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+.gh-marks { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.gh-marks li { padding: .375rem .75rem; border-radius: 2rem; background: var(--gold); color: var(--ink); text-transform: uppercase; }
+
+.gh-store { background: #144618; color: var(--white); }
+.gh-store .pg-stmt { color: var(--white); }
+.gh-store-p { margin-top: 1.5rem; color: var(--white); }
+.ticks.gh-store-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 2.5rem; margin: 2.5rem 0 0; }
+.gh-store-list li { padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, .2); }
+.gh-store-seal { margin-top: 2.5rem; color: rgba(255, 255, 255, .85); }
+
+@media (max-width: 860px) {
+  .pg-vgroup--pack .vg-item-img { background: var(--white); }
+  .pg-sec:not(.pg-sec--mist).pg-vgroup--pack .vg-item-img { box-shadow: inset 0 0 0 1px var(--line); }
+  .pg-vgroup--pack .vg-item-img img { padding: 1rem; object-fit: contain; }
+  .gh-nf, .ticks.gh-store-list { grid-template-columns: minmax(0, 1fr); }
+  .gh-mini { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ==========================================================================
+   Type system (client spec, Oct 2026): every text on the site takes one of five roles.
+     Hero H1 88/46 · Section H2 56/35 · Feature H3 24/21 · Body 16 · Eyebrow 13/12 (desktop / phone)
+   Lead paragraphs (the larger text under a heading) use the H3 size in DM Sans so they stay a step above body.
+   Last in the file, with each section's own selector, so it replaces the sizes set above at every width.
+   Kept at their own size: the outlined background words, the footer name band and the How We Work title while it
+   travels across the pinned stage — they are artwork (hidden from screen readers), not text roles.
+   ========================================================================== */
+h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-word { font-family: var(--head); }
+.acc-t { font-family: var(--head); } /* its h3 wrapper (.acc-h) resets the font to the surrounding text's */
+
+/* Body */
+.ab-intro, .ab-lead, .ab-more p, .pr-lead, .pr-desc, .wy-lead p, .wy-t, .wy-nm, .hero-foot, .hs-desc, .hs-tip p, .wk-d,
+.as-card-p, .pl-intro p, .pl-text, .pl-card--wide .pl-text, .quote-name, .quote-place, .quote blockquote p, .cta-text,
+.flist a, .ftr address, .ftr-certs-link, .nav-list a, .nav-list .nav-sub a, .btn, .btn--sm,
+.pg-body, .pg-body--tight, .pg-media-txt > p:not(.label), .pg-feats li, .pg-card p, .pg-band-col p, .pg-jump-list a,
+.pg-vbody p, .pg-acard p, .pg-field label, .pg-form-note, .pg-band--v2 .pg-band-col .pg-band-lead + p, .pg-plead,
+.pg-range-p, .pg-range-feats h4, .pg-range-feats p, .pg-range-feats li > p:only-child, .pg-range-strong, .vg-rest,
+.vg-specs dd, .pg-aim-p, .type-name, .door-d, .door-tick, .sv-ben .ab-lead, .svb-lead, .rail-lead, .rail-p,
+.sheet-points li, .who-p, .aim2-p, .aim-p, .acc-lead, .acc-txt p, .acc-txt .acc-p, .acc-txt .acc-list-h, .acc-ticks li,
+.acc-txt .acc-tag, .savor2-p, .next-d, .ct5-intro, .ct5-form-p, .ct-close-thanks, .ticks li,
+.bento-lead, .bento-tile:first-child .bento-lead, .bento-btn, .bento-more p, .bento-tile:first-child .bento-more p,
+.gh-mini span, .gh-mini b, .gh-facts dt, .gh-facts dd, .gh-facts-p, .gh-store-seal {
+  font-size: var(--fs-body); letter-spacing: 0;
+}
+.acc-lead { font-family: var(--sans); } /* sits inside the accordion's h3 button */
+.ab-intro, .ab-more p, .pr-lead, .wy-t, .hs-desc, .hs-tip p, .as-card-p, .pl-intro p, .pl-text, .quote blockquote p,
+.cta-text, .pg-body, .pg-media-txt > p:not(.label), .pg-card p, .pg-range-p, .vg-rest, .rail-p, .who-p, .aim2-p,
+.acc-txt .acc-p, .savor2-p { line-height: 1.6; }
+
+/* Lead */
+.wk-intro, .work.is-pin .wk-intro, .work.is-pin .wk-d, .as-card-lead, .pg-lead, .pg-card .pg-card-big, .pg-close p,
+.pg-close .pg-close-stmt, .pg-band--v2 .pg-band-col .pg-band-lead, .pg-media-txt > p.pg-lead-p, .pg-dl dd,
+.pg-range-lead, .vg-lead, .pg-aim-lead, .pg-ben p, .pg-ctile a, .pg-ctile address, .op-lead, .def-card p, .checks p,
+.svb-card p, .svp-t, .sheet-points li:first-child, .aim2-lead, .aim-lead, .acc-txt .acc-big, .savor2-lead, .savor-lead,
+.ask-a, .def-p, .ct5-list a, .ct5-list address, .ct-close-p, .ben p, .promise-t, .promise2-t, .gh-store-p {
+  font-family: var(--sans); font-size: var(--fs-h3); font-weight: 400; line-height: 1.4; letter-spacing: -.01em;
+} /* regular weight: the same size as a card's H3 above it, so the weight tells them apart */
+
+/* Feature H3 */
+.ab-title, .sv-key-card .ab-title, .hs-tip h3, .wk-t, .work.is-pin .wk-t, .as-card-t, .pg-stack .as-card-t:only-child,
+.pl-name, .pl-card--wide .pl-name, .pg-card h3, .pg-vbody h3, .pg-acard h3, .pg-range-h, .vg-name, .types-h a, .acc-t,
+.door-t, .next-t, .rail-t, .svb-key-h, .sheet-h, .wy-h, .pr-name, .bento-t, .bento-tile:first-child .bento-t, .svc2-t,
+.sv5-keyh, .gh-facts-h {
+  font-size: var(--fs-h3); font-weight: 700; line-height: 1.25; letter-spacing: -.015em;
+}
+
+/* Section H2 */
+.statement, .ab-h, .sv-about .ab-h, .pr-h, .wy-hd, .hs-title, .wk-big, .as-h, .pl-title, .says-title, .cta-title,
+.pg-h2, .pg-band-col h2, .pg-stmt, .pg-stmt--big, .rail-sec.is-pin .rail-head .pg-stmt, .pg-vh, .pg-fill,
+.pg-fill.who-h, .pg-aim-h, .aim2-h, .savor2-h, .savor-h, .ask-q, .def-h, .svp-h, .svb-h, .ct5-h, .ct5-form-h {
+  font-size: var(--fs-h2); font-weight: 600; line-height: 1.1; letter-spacing: -.025em;
+}
+
+/* Hero H1 */
+.hero-title, .pg-title, .pg-hero--v2 .pg-title { font-size: var(--fs-h1); font-weight: 600; line-height: 1.02; letter-spacing: -.03em; }
+
+/* Eyebrow */
+.label, .flabel, .crumbs ol, .wy-chip, .wy-day, .strip span, .hbar-label, .pl-open, .seal-name,
+.ftr-bottom, .pg-dl dt, .vg-specs dt, .gh-marks li {
+  font-family: var(--sans); font-size: var(--fs-eyebrow); font-weight: 600; letter-spacing: .08em;
+}
+
+/* artwork keeps its size; only the face changes */
+.work.is-pin .wk-big { letter-spacing: -.035em; }
+.wy-big, .svp-big, .ftr-word { letter-spacing: -.04em; }
+
+@media (max-width: 860px) {
+  .nav-list a { font-size: var(--fs-h3); } /* the phone menu's page links */
+  .nav-list .nav-sub a { font-size: var(--fs-body); }
 }
