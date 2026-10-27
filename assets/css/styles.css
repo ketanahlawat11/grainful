@@ -106,9 +106,12 @@ button { font: inherit; color: inherit; }
    and its arrows slide (left one in, right one out). A dark green shade keeps the white text readable. */
 :root { --hero-ease: cubic-bezier(.76, 0, .24, 1); }
 .hero { position: relative; display: flex; min-height: max(40rem, 100svh); color: var(--white); overflow: hidden; background: #0f1f10; }
-.hero::before { /* keeps the white text readable over the bright skies */
+.hero::before { /* one smooth shade, no patches: deep under the headline (left) and the text on the right, clear across the
+     middle so the photo shows as it is; a light band at the top (menu) and foot. All hero text 4.5:1 or better behind
+     its letters on every slide (measured on six desktop sizes) */
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(10, 24, 11, .6) 0%, rgba(10, 24, 11, .3) 28%, rgba(10, 24, 11, .42) 58%, rgba(10, 24, 11, .78) 100%);
+  background: linear-gradient(90deg, rgba(10, 24, 11, .74) 0%, rgba(10, 24, 11, .66) 34%, rgba(10, 24, 11, .32) 47%, rgba(10, 24, 11, .14) 55%, rgba(10, 24, 11, .42) 62%, rgba(10, 24, 11, .74) 73%, rgba(10, 24, 11, .76) 100%),
+              linear-gradient(180deg, rgba(10, 24, 11, .4) 0%, rgba(10, 24, 11, 0) 22%, rgba(10, 24, 11, 0) 72%, rgba(10, 24, 11, .5) 100%);
 }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-slide { position: absolute; inset: 0; margin: 0; overflow: hidden; visibility: hidden; }
@@ -129,19 +132,13 @@ button { font: inherit; color: inherit; }
 .hl { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; } /* the mask a line rises out of */
 .hl-in { display: block; }
 .hero-side { grid-column: 9 / 13; grid-row: 2; align-self: end; display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
-/* a soft shade right behind the headline and the right-hand text only, fading out around them, so the photos stay
-   clear while the white text reads at 4.5:1 or better on every slide (measured on ten screen sizes) */
-.hero-side, .hero-title { position: relative; z-index: 0; }
-.hero-side::before, .hero-title::before {
-  content: ""; position: absolute; inset: -4rem -5rem; z-index: -1; pointer-events: none;
-  background: radial-gradient(closest-side, rgba(10, 24, 11, .68), rgba(10, 24, 11, .56) 62%, rgba(10, 24, 11, 0));
-}
+.hero-title { text-shadow: 0 2px 24px rgba(0, 0, 0, .35); }
+.hero-side { text-shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 2px 18px rgba(0, 0, 0, .45); } /* a little lift over the busiest parts of a photo */
+.hero-side .btn { text-shadow: none; } /* the button's dark label on green needs none */
 @media (max-width: 860px) {
-  /* phones: an oval behind the headline shows its edge against a bright sky, so the headline at the top reads over a
-     deeper top band of the shade instead; the text at the foot keeps a softer shade of its own */
-  .hero-title::before { display: none; }
-  .hero::before { background: linear-gradient(180deg, rgba(10, 24, 11, .74) 0%, rgba(10, 24, 11, .6) 30%, rgba(10, 24, 11, .32) 45%, rgba(10, 24, 11, .42) 60%, rgba(10, 24, 11, .8) 100%); }
-  .hero-side::before { background: radial-gradient(closest-side, rgba(10, 24, 11, .6), rgba(10, 24, 11, .45) 50%, rgba(10, 24, 11, .2) 78%, rgba(10, 24, 11, 0)); }
+  /* phones: the headline runs across the top and the label, line and button across the foot, so the shade runs top to
+     bottom instead: deep at both ends, clear in the middle band where the photo shows */
+  .hero::before { background: linear-gradient(180deg, rgba(10, 24, 11, .74) 0%, rgba(10, 24, 11, .6) 30%, rgba(10, 24, 11, .2) 44%, rgba(10, 24, 11, .2) 52%, rgba(10, 24, 11, .66) 62%, rgba(10, 24, 11, .82) 100%); }
 }
 .hero-label { color: var(--white); }
 .hero-foot { max-width: 26rem; font-size: 1rem; font-weight: 500; line-height: 1.5; }
