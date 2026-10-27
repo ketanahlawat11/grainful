@@ -106,12 +106,12 @@ button { font: inherit; color: inherit; }
    and its arrows slide (left one in, right one out). A dark green shade keeps the white text readable. */
 :root { --hero-ease: cubic-bezier(.76, 0, .24, 1); }
 .hero { position: relative; display: flex; min-height: max(40rem, 100svh); color: var(--white); overflow: hidden; background: #0f1f10; }
-.hero::before { /* one smooth shade, no patches: deep under the headline (left) and the text on the right, clear across the
-     middle so the photo shows as it is; a light band at the top (menu) and foot. All hero text 4.5:1 or better behind
-     its letters on every slide (measured on six desktop sizes) */
+.hero::before { /* one smooth shade in a neutral dark (a green tint muddied the client's golden skies): deep under the
+     headline (left) and the text on the right, clear across the middle so the photo shows as it is; a light band at the
+     top (menu) and foot */
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(90deg, rgba(10, 24, 11, .74) 0%, rgba(10, 24, 11, .66) 34%, rgba(10, 24, 11, .32) 47%, rgba(10, 24, 11, .14) 55%, rgba(10, 24, 11, .42) 62%, rgba(10, 24, 11, .74) 73%, rgba(10, 24, 11, .76) 100%),
-              linear-gradient(180deg, rgba(10, 24, 11, .4) 0%, rgba(10, 24, 11, 0) 22%, rgba(10, 24, 11, 0) 72%, rgba(10, 24, 11, .5) 100%);
+  background: linear-gradient(90deg, rgba(8, 8, 6, .7) 0%, rgba(8, 8, 6, .6) 32%, rgba(8, 8, 6, .4) 42%, rgba(8, 8, 6, .24) 50%, rgba(8, 8, 6, .2) 54%, rgba(8, 8, 6, .3) 60%, rgba(8, 8, 6, .5) 67%, rgba(8, 8, 6, .66) 75%, rgba(8, 8, 6, .7) 100%),
+              linear-gradient(180deg, rgba(8, 8, 6, .35) 0%, rgba(8, 8, 6, 0) 22%, rgba(8, 8, 6, 0) 72%, rgba(8, 8, 6, .45) 100%);
 }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-slide { position: absolute; inset: 0; margin: 0; overflow: hidden; visibility: hidden; }
@@ -135,10 +135,23 @@ button { font: inherit; color: inherit; }
 .hero-title { text-shadow: 0 2px 24px rgba(0, 0, 0, .35); }
 .hero-side { text-shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 2px 18px rgba(0, 0, 0, .45); } /* a little lift over the busiest parts of a photo */
 .hero-side .btn { text-shadow: none; } /* the button's dark label on green needs none */
+/* a wide, faint shade behind the label, line and button, so the small white text reads over the brightest part of a photo
+   (the white rice of the first image): large and soft enough that it has no visible edge. With the shade above, all
+   hero text is 4.5:1 or better behind its letters on every slide (measured on desktops, tablets and phones) */
+.hero-side { position: relative; z-index: 0; }
+.hero-side::before {
+  content: ""; position: absolute; inset: -11rem -14rem -9rem; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(8, 8, 6, .56), rgba(8, 8, 6, .42) 35%, rgba(8, 8, 6, .18) 70%, rgba(8, 8, 6, 0));
+}
 @media (max-width: 860px) {
   /* phones: the headline runs across the top and the label, line and button across the foot, so the shade runs top to
      bottom instead: deep at both ends, clear in the middle band where the photo shows */
-  .hero::before { background: linear-gradient(180deg, rgba(10, 24, 11, .74) 0%, rgba(10, 24, 11, .6) 30%, rgba(10, 24, 11, .2) 44%, rgba(10, 24, 11, .2) 52%, rgba(10, 24, 11, .66) 62%, rgba(10, 24, 11, .82) 100%); }
+  .hero::before { background: linear-gradient(180deg, rgba(8, 8, 6, .7) 0%, rgba(8, 8, 6, .56) 30%, rgba(8, 8, 6, .18) 44%, rgba(8, 8, 6, .18) 52%, rgba(8, 8, 6, .62) 62%, rgba(8, 8, 6, .8) 100%); }
+}
+@media (min-width: 861px) and (max-aspect-ratio: 4 / 5) {
+  /* upright tablets: a left-to-right shade's clear middle shows as a bright vertical stripe on a tall screen, so the
+     shade runs top to bottom here too, clear above and deep over the lower half where the headline and text sit */
+  .hero::before { background: linear-gradient(180deg, rgba(8, 8, 6, .5) 0%, rgba(8, 8, 6, .22) 22%, rgba(8, 8, 6, .22) 38%, rgba(8, 8, 6, .62) 52%, rgba(8, 8, 6, .68) 68%, rgba(8, 8, 6, .8) 100%); }
 }
 .hero-label { color: var(--white); }
 .hero-foot { max-width: 26rem; font-size: 1rem; font-weight: 500; line-height: 1.5; }
