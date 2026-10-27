@@ -280,9 +280,10 @@ button { font: inherit; color: inherit; }
 .wy-panels { display: flex; flex-direction: column; }
 .wy-panel { position: relative; display: flex; align-items: flex-end; min-height: 36rem; padding: 0 var(--pad) 3rem; overflow: hidden; background: #2d5a2f; }
 .wy-pic { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; scale: 1.07; transition: scale 1.8s cubic-bezier(.2, .8, .2, 1); }
-.wy-pic--3 { object-position: 35% 50%; }
 .wy-panel.is-on .wy-pic { scale: 1; }
-.wy-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .92) 30%, rgba(14, 42, 16, .72) 50%, rgba(14, 42, 16, .18) 72%, rgba(14, 42, 16, 0) 86%), linear-gradient(rgba(14, 42, 16, .62), rgba(14, 42, 16, 0) 24%); }
+/* the photos (client, 27 Oct 2026) already fade to deep green on the left, so the veil stays light: enough under the
+   text (bottom-left) and the keyword (top) to keep them readable, the rest of the photo at its own brightness */
+.wy-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14, 42, 16, .82) 0, rgba(14, 42, 16, .62) 26%, rgba(14, 42, 16, .3) 46%, rgba(14, 42, 16, 0) 64%), linear-gradient(90deg, rgba(14, 42, 16, .45) 0, rgba(14, 42, 16, .25) 45%, rgba(14, 42, 16, 0) 70%), linear-gradient(rgba(14, 42, 16, .4), rgba(14, 42, 16, 0) 22%); }
 .wy-shade { position: absolute; inset: 0; background: #0e2a10; opacity: .56; transition: opacity .7s; }
 .wy-panel.is-on .wy-shade { opacity: 0; }
 .wy-big { position: absolute; left: 2.5rem; top: 6.5rem; font-size: clamp(5rem, 13vw, 11.5rem); font-weight: 600; line-height: .8; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .78); white-space: nowrap; opacity: 0; transition: opacity .3s; }
@@ -669,6 +670,8 @@ button { font: inherit; color: inherit; }
 @media (max-width: 560px) {
   .wy-panel { min-height: 28rem; padding-bottom: 2rem; }
   .wy-big { font-size: 3.75rem; } /* the longest keyword (Packaging) fits a 360px screen */
+  /* on a phone the text fills most of the panel's height: the veil reaches further up behind it */
+  .wy-veil { background: linear-gradient(0deg, rgba(14, 42, 16, .86) 0, rgba(14, 42, 16, .72) 35%, rgba(14, 42, 16, .4) 58%, rgba(14, 42, 16, 0) 80%), linear-gradient(90deg, rgba(14, 42, 16, .45) 0, rgba(14, 42, 16, .25) 45%, rgba(14, 42, 16, 0) 70%), linear-gradient(rgba(14, 42, 16, .4), rgba(14, 42, 16, 0) 22%); }
   .ab-cards { grid-template-columns: minmax(0, 1fr); }
   .ab-card { padding: 1.5rem; }
   .ab-lead { margin-top: 1.25rem; }
