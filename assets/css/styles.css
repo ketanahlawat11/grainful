@@ -120,7 +120,10 @@ button { font: inherit; color: inherit; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-slide { position: absolute; inset: 0; margin: 0; overflow: hidden; visibility: hidden; }
 .hero-slide.is-on { visibility: visible; z-index: 1; }
-.hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: 75% 50%; } /* the hero images keep their rice on the right, the left dark for the headline: crop from the right so the rice stays in view on narrower screens */
+.hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; } /* the client's hero images are wide panoramas with the rice at the right and the left dark for the headline: on a wide screen the crop comes off the empty left side only, so the bowl, stalks and sacks stay whole */
+@media (max-aspect-ratio: 5 / 4) {
+  .hero-slide img { object-position: 75% 50%; } /* tall screens (phones, upright tablets) see a narrow slice: centre it on the rice */
+}
 .hero-slide.is-enter { visibility: visible; z-index: 2; clip-path: inset(var(--hf-y) var(--hf-x) round 4px); }
 .hero-slide.is-enter img { transform: scale(1.2); }
 .hero-slide.is-enter.is-go { clip-path: inset(0 round 0); transition: clip-path 1.8s var(--hero-ease); }
