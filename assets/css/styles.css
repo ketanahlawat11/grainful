@@ -566,6 +566,16 @@ button { font: inherit; color: inherit; }
 .cta { position: relative; display: flex; align-items: center; min-height: 40rem; color: var(--white); overflow: hidden; }
 .cta-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cta::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(14, 14, 14, .6); }
+/* homepage band: the port at sunset (client, 27 Oct 2026). The band is wider than the photo, so it shows the upper part
+   (sun, cranes, ship) above the bowl; the shade is lighter at the sides and only deep behind the centred text */
+.cta--port .cta-img { object-position: 50% 22%; }
+.cta--port::before { background: linear-gradient(90deg, rgba(14, 14, 14, .15) 0%, rgba(14, 14, 14, .5) 30%, rgba(14, 14, 14, .55) 50%, rgba(14, 14, 14, .5) 70%, rgba(14, 14, 14, .15) 100%); }
+/* a soft wide glow behind the text block keeps the paragraph readable where the rice sits behind it (laptops) */
+.cta--port .cta-in::before { content: ""; position: absolute; left: 50%; top: 50%; z-index: -1; width: min(64rem, 130%); height: 115%; transform: translate(-50%, -50%); pointer-events: none; background: radial-gradient(closest-side, rgba(14, 14, 14, .55), rgba(14, 14, 14, .42) 45%, rgba(14, 14, 14, .18) 75%, rgba(14, 14, 14, 0)); }
+@media (max-width: 860px) {
+  .cta--port .cta-img { object-position: 72% 22%; } /* phones: the bowl sits under the text, the cranes above it */
+  .cta--port .cta-in::before { background: radial-gradient(closest-side, rgba(14, 14, 14, .62), rgba(14, 14, 14, .5) 50%, rgba(14, 14, 14, .22) 78%, rgba(14, 14, 14, 0)); }
+}
 .cta-in { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; padding-top: 6rem; padding-bottom: 6rem; text-align: center; }
 .cta-title { max-width: 20ch; font-size: clamp(2rem, 4.45vw, 4rem); font-weight: 500; line-height: 1.1; letter-spacing: -.05em; }
 .cta-text { max-width: 34rem; font-size: 1.0625rem; line-height: 1.6; }
