@@ -301,12 +301,18 @@ button { font: inherit; color: inherit; }
 .why.is-pin .wy-track { position: absolute; left: 0; top: 0; bottom: 0; flex-direction: row; will-change: transform; }
 .why.is-pin .wy-intro { flex: none; width: 41.1vw; padding: 7.5rem 4vw 11.8rem; }
 .why.is-pin .wy-panels { flex-direction: row; }
-.why.is-pin .wy-panel { flex: none; width: 62vw; min-height: 0; height: 100%; padding: 0 3.2vw 10.7rem; }
-/* side by side, each photo would end in a hard vertical cut against the next one: both sides fade into the deep green,
-   so neighbouring panels meet dark to dark (the keyword and text stay above the fade) */
-.why.is-pin .wy-panel::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .5) 5%, rgba(14, 42, 16, 0) 13%, rgba(14, 42, 16, 0) 72%, rgba(14, 42, 16, .5) 88%, rgba(14, 42, 16, .97) 100%); }
+/* each photo fills the screen (client, 27 Oct 2026); text and keyword line up with the rail below (4vw) */
+.why.is-pin .wy-panel { flex: none; width: 100vw; min-height: 0; height: 100%; padding: 0 4vw 10.7rem; }
+/* while one photo slides into the next, a thin fade on both sides keeps the join soft (dark meets dark) instead of a
+   hard vertical cut; settled, the strips sit at the screen edges */
+.why.is-pin .wy-panel::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .45) 3%, rgba(14, 42, 16, 0) 8%, rgba(14, 42, 16, 0) 92%, rgba(14, 42, 16, .45) 97%, rgba(14, 42, 16, .97) 100%); }
 .why.is-pin .wy-big, .why.is-pin .wy-txt { z-index: 2; }
-.why.is-pin .wy-big { font-size: clamp(5rem, 12vw, 11.5rem); } /* the longest keyword (Packaging) fits its 62vw panel down to 1024px */
+.why.is-pin .wy-big { left: 4vw; font-size: clamp(5rem, 12vw, 11.5rem); }
+/* a screen-wide panel shows only the middle band of each 4:3 photo, and the header covers its top: each photo is set so
+   its subject stays in view (the hands and the bowl, the cranes and the sack, the farmer's hat, the pouches and the bowl) */
+.why.is-pin .wy-pic { object-position: 50% 25%; }
+.why.is-pin .wy-pic--1 { object-position: 50% 36%; }
+.why.is-pin .wy-pic--4 { object-position: 50% 40%; }
 .why.is-pin .wy-rail { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 0 4vw 1.5rem; }
 .why.is-pin .wy-rail::before { content: ""; position: absolute; left: 0; right: 0; bottom: 0; top: -3rem; z-index: -1; background: linear-gradient(rgba(14, 42, 16, 0), rgba(14, 42, 16, .9) 3rem); } /* the rail reads over the green intro too */
 .wy-line-bg { position: absolute; left: 4vw; right: 4vw; top: 0; height: 2px; overflow: hidden; background: rgba(255, 255, 255, .3); }
@@ -340,7 +346,7 @@ button { font: inherit; color: inherit; }
 .hs-title { font-size: clamp(2.25rem, 4vw, 4rem); font-weight: 500; line-height: 1.05; letter-spacing: -.05em; }
 .hs-desc { margin-top: 1.25rem; font-size: 1.0625rem; line-height: 1.6; color: var(--grey); }
 .hs-media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--mist); }
-.hs-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; filter: contrast(1.1) saturate(1.08); } /* lifts the haze of the source photo */
+.hs-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .hs-scrim { display: none; }
 .hs-dot { position: absolute; z-index: 2; width: 2rem; height: 2rem; margin: -1rem 0 0 -1rem; padding: 0; border: 0; border-radius: 50%; background: var(--white); box-shadow: 0 1px 5px rgba(0, 0, 0, .25); cursor: pointer; transition: background-color .3s, transform .3s var(--ease); }
 .hs-dot::before, .hs-dot::after { content: ""; position: absolute; left: 50%; top: 50%; width: .75rem; height: 2px; margin: -1px 0 0 -.375rem; background: var(--green); transition: transform .35s var(--ease), background-color .3s; }
@@ -355,9 +361,9 @@ button { font: inherit; color: inherit; }
 .hs-dot.is-open .hs-ring { animation: none; opacity: 0; }
 @keyframes hs-ring { 0% { transform: scale(.6); opacity: .85; } 100% { transform: scale(1.6); opacity: 0; } }
 /* marker positions, percent of the 3:2 crop (the crop drops the source watermark at the foot) */
-.hs-dot--1 { left: 12.5%; top: 38.5%; }
-.hs-dot--2 { left: 70%; top: 71%; }
-.hs-dot--3 { left: 30%; top: 64%; }
+.hs-dot--1 { left: 47%; top: 30%; }
+.hs-dot--2 { left: 60%; top: 52%; }
+.hs-dot--3 { left: 30%; top: 68%; }
 /* cards: a list by default */
 .hs-tips { display: grid; gap: .75rem; max-width: 90rem; margin: 0 auto; padding: 1rem var(--pad) var(--gap); }
 .hs-tip { position: relative; padding: 1.125rem 1.25rem; border-radius: .5rem; background: var(--mist); }
@@ -368,7 +374,7 @@ button { font: inherit; color: inherit; }
   /* the photo is the whole section: a compact band (about 600px tall at 1440px) */
   .hs-wrap { height: clamp(32rem, 42vw, 40rem); overflow: hidden; }
   .hs-media { position: absolute; inset: 0; aspect-ratio: auto; }
-  .hs-media img { object-position: 50% 55%; } /* keeps the machinery, the bins on the conveyor and the rice in view */
+  .hs-media img { object-position: 50% 55%; } /* keeps the machinery, the conveyors and the rice bin in view */
   .hs-scrim { display: block; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(225deg, rgba(14, 42, 16, .92) 0%, rgba(14, 42, 16, .8) 24%, rgba(14, 42, 16, .35) 44%, rgba(14, 42, 16, 0) 60%); }
   .hs-copy { position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 2; display: flex; align-items: flex-start; justify-content: flex-end; padding-top: 3.5rem; padding-bottom: 0; pointer-events: none; }
   .hs-copy-in { max-width: 28rem; pointer-events: auto; }
@@ -376,9 +382,9 @@ button { font: inherit; color: inherit; }
   .hs-title { font-size: clamp(2.25rem, 3.3vw, 3rem); color: var(--white); }
   .hs-desc { margin-top: 1rem; color: var(--white); }
   /* approximate positions until main.js pins the markers to their points on the photo */
-  .hs-dot--1 { left: 12.5%; top: 38.5%; }
-  .hs-dot--2 { left: 70%; top: 71%; }
-  .hs-dot--3 { left: 30%; top: 66%; }
+  .hs-dot--1 { left: 47%; top: 30%; }
+  .hs-dot--2 { left: 60%; top: 52%; }
+  .hs-dot--3 { left: 30%; top: 68%; }
 }
 /* floating cards (1024px+ with JS) */
 .hs-wrap.is-float .hs-tips { position: absolute; inset: 0; z-index: 3; display: block; max-width: none; margin: 0; padding: 0; pointer-events: none; }
