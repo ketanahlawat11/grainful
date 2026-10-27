@@ -467,7 +467,8 @@ button { font: inherit; color: inherit; }
 .assure-in { display: flex; gap: 4rem; align-items: flex-start; }
 .as-left { position: sticky; top: 0; flex: 1; max-width: 32rem; padding-top: var(--gap); }
 .as-left-in { display: flex; flex-direction: column; gap: 1.5rem; }
-.as-h { font-size: clamp(1.625rem, 2.2vw, 2rem); font-weight: 500; line-height: 1.15; letter-spacing: -.045em; color: var(--ink); }
+.as-h { font-size: clamp(1.625rem, 2.2vw, 2rem); font-weight: 500; line-height: 1.15; letter-spacing: -.045em; color: var(--ink); text-wrap: balance; }
+.as-h .nobr { white-space: nowrap; } /* "well-being" never splits at its hyphen */
 .as-photo { width: 100%; margin-top: .5rem; overflow: hidden; border-radius: 1rem; }
 .as-photo img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
 .assure .as-cards { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4rem; padding-top: var(--gap); padding-bottom: 4rem; } /* room below so the left column and the last card leave together */
@@ -1666,7 +1667,7 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
 .pg-close .pg-close-stmt, .pg-band--v2 .pg-band-col .pg-band-lead, .pg-media-txt > p.pg-lead-p, .pg-dl dd,
 .pg-range-lead, .vg-lead, .pg-aim-lead, .pg-ben p, .pg-ctile a, .pg-ctile address, .op-lead, .def-card p, .checks p,
 .svb-card p, .svp-t, .sheet-points li:first-child, .aim2-lead, .aim-lead, .acc-txt .acc-big, .savor2-lead, .savor-lead,
-.ask-a, .def-p, .ct5-list a, .ct5-list address, .ct-close-p, .ben p, .promise-t, .promise2-t, .gh-store-p {
+.ask-a, .def-p, .ct5-list a, .ct5-list address, .ct-close-p, .ben p, .promise-t, .promise2-t, .gh-store-p, .as-sub {
   font-family: var(--sans); font-size: var(--fs-h3); font-weight: 400; line-height: 1.4; letter-spacing: -.01em;
 } /* regular weight: the same size as a card's H3 above it, so the weight tells them apart */
 
