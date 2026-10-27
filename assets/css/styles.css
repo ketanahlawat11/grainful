@@ -436,6 +436,10 @@ button { font: inherit; color: inherit; }
 .wk-layer.is-shown .wk-frame img, .wk-layer:first-child .wk-frame img { transform: none; }
 .wk-layer:first-child .wk-frame { background: none; } /* no empty box before the blurred photo fades in */
 .wk-layer:first-child .wk-frame img { filter: blur(24px); opacity: var(--fade, 0); } /* the intro panel: the first photo, blurred */
+/* the tall frame crops the sides of these near-square photos: the farmer (stage 1) and the engineer (stage 6) stand on
+   the right, so those two keep their right side in frame (layer 1 is the intro, so stage n is child n + 1) */
+.wk-layer:nth-child(1) .wk-frame img, .wk-layer:nth-child(2) .wk-frame img { object-position: 80% 50%; }
+.wk-layer:nth-child(7) .wk-frame img { object-position: 88% 50%; }
 .work.is-pin .wk-big { position: absolute; left: 50%; top: 50%; z-index: 2; max-width: none; margin: 0; padding: 0; font-size: clamp(5rem, 10vw, 10rem); line-height: 1; white-space: nowrap; transform-origin: 50% 50%; transform: translate(-50%, -50%) translate(var(--bx, 0px), var(--by, 0px)) scale(var(--bs, 1)); }
 .work.is-pin .wk-big-in { transform: translateY(110%); transition: transform .9s var(--says-ease); }
 .work.is-pin .wk-big.is-up .wk-big-in { transform: none; }
