@@ -1761,3 +1761,11 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
    wide screens keep the right side (the products), phones aim at the bowls */
 .pg-hero-img--products { object-position: 100% 50%; }
 @media (max-width: 860px) { .pg-hero-img--products { object-position: 68% 50%; } }
+
+/* Non-Basmati page head (client photo, 28 Oct 2026): the dark stone is on the left, so a narrower desktop crops from
+   the right and keeps the stone under the title and the trail of pages; phones aim at the sack and the scoop */
+.pg-hero-img--nonbasmati { object-position: 0% 50%; }
+@media (max-width: 860px) {
+  .pg-hero-img--nonbasmati { object-position: 72% 50%; }
+  .pg-hero:has(.pg-hero-img--nonbasmati)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
+}
