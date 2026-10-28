@@ -1581,7 +1581,8 @@ main.inner .assure.pg-stack { padding-bottom: 0; }
   .savor2-in { grid-template-columns: minmax(0, 1fr); row-gap: 1.5rem; padding: 9rem 1.5rem 1.5rem; }
   .savor2-hm, .savor2-side { grid-column: 1; }
   .aim2 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 1.5rem; }
-  .aim2-card { display: flex; flex-direction: column; justify-content: flex-end; grid-row: auto; min-height: 34rem; padding: 9rem .75rem .75rem; } /* stacked: each card on its own, its photo always showing above the panel */
+  .aim2-card { display: flex; flex-direction: column; justify-content: flex-end; grid-row: auto; min-height: 34rem; padding: 13rem .75rem .75rem; } /* stacked: each card on its own, its photo always showing above the panel */
+  .aim2 > li:nth-child(2) .aim2-img { object-position: 72% 50%; } /* the hands and the rice in the band above the panel */
   .aim2-glass { min-height: 0; }
   .who-in { grid-template-columns: minmax(0, 1fr); }
   .who-pics { padding: 0 0 2.75rem 2rem; }
