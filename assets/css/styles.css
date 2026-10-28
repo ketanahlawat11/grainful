@@ -1746,7 +1746,7 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
 @media (max-width: 860px) {
   .pg-hero-img--ghee { object-position: 72% 50%; }
   /* there the trail of pages and the title sit on the bright jar: the shade is a step deeper through the middle */
-  .pg-hero:has(.pg-hero-img--ghee)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
+  .pg-hero:has(.pg-hero-img--ghee)::before, .pg-hero:has(.pg-hero-img--products)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
 }
 
 /* We Make Your Brand doors (client photos, 28 Oct 2026): the pouches and boxes stand in the upper part of each photo,
@@ -1757,3 +1757,8 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .doors .door { padding-top: 15rem; }
   .doors .door-img { height: 26rem; bottom: auto; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); } /* fades into the door's green under the panel: no edge */
 }
+
+/* Our Products page head (client photo, 28 Oct 2026): dark green on the left under the title, the range on the right;
+   wide screens keep the right side (the products), phones aim at the bowls */
+.pg-hero-img--products { object-position: 100% 50%; }
+@media (max-width: 860px) { .pg-hero-img--products { object-position: 68% 50%; } }
