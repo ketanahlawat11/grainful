@@ -1340,15 +1340,18 @@ main.inner .assure.pg-stack { padding-bottom: 0; }
 /* About: vision and mission v2 — two tall photo cards; the text on a frosted deep-green panel (as the home page's About
    cards: the same tint and blur, white text at 5:1 or better). The photo settles from 112% as the card comes in and
    eases closer on hover. */
-.aim2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; padding: 0; }
+.aim2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(15rem, 1fr) auto; column-gap: 1.5rem; row-gap: 0; padding: 0; }
 .aim2 > li:nth-child(2) { transition-delay: .12s; }
-.aim2-card { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 40rem; padding: 1.25rem; overflow: hidden; border-radius: 1rem; background: #0f1f10; }
+/* side by side the two cards share their rows (subgrid): both glass panels take the taller one's height, so the titles,
+   leads and rules line up across the pair whatever the length of each text */
+.aim2-card { position: relative; display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; min-height: 40rem; padding: 1.25rem; overflow: hidden; border-radius: 1rem; background: #0f1f10; }
+.aim2-glass { grid-row: 2; }
 .aim2-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.6s var(--says-ease); }
 .js .aim2-card .aim2-img { transform: scale(1.12); }
 .js .aim2-card.is-in .aim2-img { transform: none; }
 .js .aim2-card.is-in:hover .aim2-img { transform: scale(1.04); transition-duration: 1.2s; }
 .aim2-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 24, 11, 0) 35%, rgba(10, 24, 11, .45) 100%); pointer-events: none; }
-.aim2-glass { position: relative; display: flex; flex-direction: column; gap: 1.25rem; min-height: 23rem; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: .875rem; color: var(--white); background: rgba(20, 70, 24, .76); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px); }
+.aim2-glass { position: relative; display: flex; flex-direction: column; gap: 1.25rem; min-height: 23rem; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: .875rem; color: var(--white); background: rgba(20, 70, 24, .86); -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px); }
 .aim2-h { font-size: clamp(2.25rem, 3.6vw, 3.25rem); font-weight: 500; line-height: 1.02; letter-spacing: -.05em; }
 .aim2-lead { font-size: clamp(1.125rem, 1.5vw, 1.375rem); font-weight: 500; line-height: 1.4; letter-spacing: -.02em; }
 .aim2-p { padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, .22); font-size: .9375rem; line-height: 1.65; color: rgba(255, 255, 255, .85); }
@@ -1577,8 +1580,8 @@ main.inner .assure.pg-stack { padding-bottom: 0; }
   .savor2::before { background: linear-gradient(0deg, rgba(10, 24, 11, .9) 0, rgba(10, 24, 11, .74) 32rem, rgba(10, 24, 11, .15) 40rem, rgba(10, 24, 11, .08) 100%); } /* the stacked text stands taller */
   .savor2-in { grid-template-columns: minmax(0, 1fr); row-gap: 1.5rem; padding: 9rem 1.5rem 1.5rem; }
   .savor2-hm, .savor2-side { grid-column: 1; }
-  .aim2 { grid-template-columns: minmax(0, 1fr); }
-  .aim2-card { min-height: 34rem; padding: .75rem; }
+  .aim2 { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: 1.5rem; }
+  .aim2-card { display: flex; flex-direction: column; justify-content: flex-end; grid-row: auto; min-height: 34rem; padding: 9rem .75rem .75rem; } /* stacked: each card on its own, its photo always showing above the panel */
   .aim2-glass { min-height: 0; }
   .who-in { grid-template-columns: minmax(0, 1fr); }
   .who-pics { padding: 0 0 2.75rem 2rem; }
