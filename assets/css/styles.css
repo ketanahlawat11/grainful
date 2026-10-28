@@ -1733,10 +1733,9 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
 .pg-range-img img.pg-range-bowl { object-position: 72% 50%; }
 /* Our Products, ghee range (client's pack shot, 28 Oct 2026): a product on white, shown whole rather than cropped to fill */
 .pg-range-img--pack { background: #fff; }
-.pg-range-img--pack img { inset: 2rem; width: calc(100% - 4rem); height: calc(100% - 4rem); object-fit: contain; }
+.pg-range-img--pack img { inset: 0; width: 100%; height: 100%; object-fit: contain; } /* cropped tight to the box: it fills the frame's width, nothing of the pack cut */
 @media (max-width: 860px) {
   .pg-range-img.pg-range-img--pack { min-height: 24rem; aspect-ratio: auto; }
-  .pg-range-img--pack img { inset: 1rem; width: calc(100% - 2rem); height: calc(100% - 2rem); }
 }
 /* Our Products, Non-Basmati range (client photo, 28 Oct 2026): the sack and the spilled rice sit right of centre */
 .pg-range-img img.pg-range-sack { object-position: 64% 50%; }
