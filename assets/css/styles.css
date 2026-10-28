@@ -1741,17 +1741,10 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
 /* Our Products, Non-Basmati range (client photo, 28 Oct 2026): the sack and the spilled rice sit right of centre */
 .pg-range-img img.pg-range-sack { object-position: 64% 50%; }
 
-/* Natural Wonder page head (client's Drive packs, 28 Oct 2026): a deep-green banner, so the usual dark shade is only a
-   light foot, and the pack card is part of the layout - beside the title from 1440px, above it below that - so it can
-   never cover the title or the trail of pages */
-.pg-hero:has(.pg-hero-img--ghee)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .2) 0%, rgba(10, 24, 11, 0) 30%, rgba(10, 24, 11, 0) 65%, rgba(10, 24, 11, .4) 100%); }
-.pg-hero--v2 .pg-hero-img--ghee { animation: none; }
-.pg-hero-pack { margin: 0; overflow: hidden; border-radius: 1rem; background: #fff; box-shadow: 0 24px 50px rgba(0, 0, 0, .35); }
-.pg-hero-pack img { display: block; width: 100%; height: auto; }
-.pg-hero-in:has(.pg-hero-pack) { display: grid; grid-template-columns: minmax(0, 1fr) 26rem; column-gap: 3rem; align-items: end; }
-.pg-hero-in:has(.pg-hero-pack) > :not(.pg-hero-pack) { grid-column: 1; }
-.pg-hero-pack { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
-@media (max-width: 1439px) {
-  .pg-hero-in:has(.pg-hero-pack) { grid-template-columns: minmax(0, 1fr); }
-  .pg-hero-pack { grid-column: 1; grid-row: auto; width: min(100%, 34rem); margin-bottom: 2.25rem; }
+/* Natural Wonder page head (client's ghee photo, 28 Oct 2026): the same photo-and-shade head as the other pages; the jar
+   and the pouring spoon sit right of centre, so a narrow screen keeps them in view */
+@media (max-width: 860px) {
+  .pg-hero-img--ghee { object-position: 72% 50%; }
+  /* there the trail of pages and the title sit on the bright jar: the shade is a step deeper through the middle */
+  .pg-hero:has(.pg-hero-img--ghee)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
 }
