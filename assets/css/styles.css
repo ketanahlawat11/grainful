@@ -1738,3 +1738,5 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .pg-range-img.pg-range-img--pack { min-height: 24rem; aspect-ratio: auto; }
   .pg-range-img--pack img { inset: 1rem; width: calc(100% - 2rem); height: calc(100% - 2rem); }
 }
+/* Our Products, Non-Basmati range (client photo, 28 Oct 2026): the sack and the spilled rice sit right of centre */
+.pg-range-img img.pg-range-sack { object-position: 64% 50%; }
