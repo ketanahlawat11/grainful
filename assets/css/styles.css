@@ -1721,3 +1721,11 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .nav-list a { font-size: var(--fs-h3); } /* the phone menu's page links */
   .nav-list .nav-sub a { font-size: var(--fs-body); }
 }
+
+/* About Us "Feeling hungry?" panel with the client's backlit rice ear at sunset (28 Oct 2026): the photo is dark low down
+   already, so the shade is light, deeper only under the title (bottom) and behind the text column (right); stacked on
+   phones it reaches up behind the taller text. Last in the file so it replaces the panel's earlier shades at every width */
+.savor2::before { background: linear-gradient(0deg, rgba(10, 24, 11, .6) 0, rgba(10, 24, 11, .38) 14rem, rgba(10, 24, 11, .06) 26rem, rgba(10, 24, 11, 0) 100%), linear-gradient(90deg, rgba(10, 24, 11, 0) 40%, rgba(10, 24, 11, .42) 58%, rgba(10, 24, 11, .48) 100%); }
+@media (max-width: 860px) {
+  .savor2::before { background: linear-gradient(0deg, rgba(10, 24, 11, .75) 0, rgba(10, 24, 11, .6) 26rem, rgba(10, 24, 11, .2) 36rem, rgba(10, 24, 11, .05) 100%); }
+}
