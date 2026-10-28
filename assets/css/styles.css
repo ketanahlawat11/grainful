@@ -1731,3 +1731,10 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
 }
 /* Our Products, Basmati range (client photo, 28 Oct 2026): the brass bowl sits right of centre, so a tall frame keeps it whole */
 .pg-range-img img.pg-range-bowl { object-position: 72% 50%; }
+/* Our Products, ghee range (client's pack shot, 28 Oct 2026): a product on white, shown whole rather than cropped to fill */
+.pg-range-img--pack { background: #fff; }
+.pg-range-img--pack img { inset: 2rem; width: calc(100% - 4rem); height: calc(100% - 4rem); object-fit: contain; }
+@media (max-width: 860px) {
+  .pg-range-img.pg-range-img--pack { min-height: 24rem; aspect-ratio: auto; }
+  .pg-range-img--pack img { inset: 1rem; width: calc(100% - 2rem); height: calc(100% - 2rem); }
+}
