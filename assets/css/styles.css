@@ -1810,3 +1810,11 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .pg-hero-img--privatelabel { object-position: 62% 50%; }
   .pg-hero:has(.pg-hero-img--privatelabel)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .62) 35%, rgba(10, 24, 11, .7) 55%, rgba(10, 24, 11, .86) 100%); }
 }
+
+/* Private Label page, Private Label panel (client photo, 29 Oct 2026): the pouch and the box stand right of centre;
+   a phone's narrow crop would show only the rice ears, so it aims at the pouch, and the shade rises higher there so the
+   heading stays clear where it crosses the pouch's pale top */
+@media (max-width: 860px) {
+  .svp-pic--pl { object-position: 70% 50%; }
+  .svp-panel:has(.svp-pic--pl) .svp-veil { background: linear-gradient(0deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .92) 30%, rgba(14, 42, 16, .86) 50%, rgba(14, 42, 16, .74) 66%, rgba(14, 42, 16, .3) 82%, rgba(14, 42, 16, 0) 94%), linear-gradient(rgba(14, 42, 16, .62), rgba(14, 42, 16, 0) 24%); }
+}
