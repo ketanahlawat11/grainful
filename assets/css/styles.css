@@ -1818,3 +1818,7 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .svp-pic--pl { object-position: 70% 50%; }
   .svp-panel:has(.svp-pic--pl) .svp-veil { background: linear-gradient(0deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .92) 30%, rgba(14, 42, 16, .86) 50%, rgba(14, 42, 16, .74) 66%, rgba(14, 42, 16, .3) 82%, rgba(14, 42, 16, 0) 94%), linear-gradient(rgba(14, 42, 16, .62), rgba(14, 42, 16, 0) 24%); }
 }
+
+/* White Label page, White Label panel (client photo, 29 Oct 2026): a sunrise sky and pale pouch tops sit behind the
+   outlined word, so the shade from the top is a step deeper and reaches a little further down */
+.svp-panel:has(.svp-pic--wl) .svp-veil { background: linear-gradient(0deg, rgba(14, 42, 16, .97) 0, rgba(14, 42, 16, .92) 30%, rgba(14, 42, 16, .72) 50%, rgba(14, 42, 16, .18) 72%, rgba(14, 42, 16, 0) 86%), linear-gradient(rgba(14, 42, 16, .72), rgba(14, 42, 16, .3) 30%, rgba(14, 42, 16, 0) 46%); }
