@@ -1798,3 +1798,15 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
    so it fills the pinned ground edge to edge (an oval fade would show its rim) and the frosted cards scroll over it */
 .svb--full { background: #1d2a1a; }
 .svb--full .svb-photo img { inset: 0; left: 0; bottom: auto; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 62% 50%; transform: none; -webkit-mask-image: none; mask-image: none; }
+
+/* Private Label page head (client photo, 29 Oct 2026): the pouches, bowl and box stand on the right of a dark green
+   wall, starting a little left of centre, so a shade from the left dims the cream pouch behind the title on desktop;
+   phones aim at the pouches with the deeper shade */
+.pg-hero-img--privatelabel { object-position: 100% 50%; }
+@media (min-width: 861px) {
+  .pg-hero:has(.pg-hero-img--privatelabel)::before { background: linear-gradient(90deg, rgba(10, 24, 11, .55) 0%, rgba(10, 24, 11, .5) 45%, rgba(10, 24, 11, .28) 62%, rgba(10, 24, 11, 0) 76%), linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .35) 35%, rgba(10, 24, 11, .55) 70%, rgba(10, 24, 11, .82) 100%); }
+}
+@media (max-width: 860px) {
+  .pg-hero-img--privatelabel { object-position: 62% 50%; }
+  .pg-hero:has(.pg-hero-img--privatelabel)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .62) 35%, rgba(10, 24, 11, .7) 55%, rgba(10, 24, 11, .86) 100%); }
+}
