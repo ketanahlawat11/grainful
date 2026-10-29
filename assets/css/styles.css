@@ -1793,3 +1793,8 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   /* the trail of pages wraps onto the white pouch there: the shade holds deeper through that band */
   .pg-hero:has(.pg-hero-img--whitelabel)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .62) 35%, rgba(10, 24, 11, .7) 55%, rgba(10, 24, 11, .86) 100%); }
 }
+
+/* White Label Packaging, We Make Your Brand section (client photo, 29 Oct 2026): a full-colour field-and-sack photo,
+   so it fills the pinned ground edge to edge (an oval fade would show its rim) and the frosted cards scroll over it */
+.svb--full { background: #1d2a1a; }
+.svb--full .svb-photo img { inset: 0; left: 0; bottom: auto; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 62% 50%; transform: none; -webkit-mask-image: none; mask-image: none; }
