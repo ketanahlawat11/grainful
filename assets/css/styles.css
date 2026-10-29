@@ -1780,3 +1780,16 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .pg-hero-img--brand { object-position: 68% 50%; }
   .pg-hero:has(.pg-hero-img--brand)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
 }
+
+/* White Label Packaging page head (client photo, 29 Oct 2026): the pouches, rice pack and box stand on the right of a
+   dark green wall; the long title reaches the white pouch on every desktop width, so a shade from the left dims it
+   behind the words and fades out before the kraft pouch; phones aim at the pouches */
+.pg-hero-img--whitelabel { object-position: 100% 50%; }
+@media (min-width: 861px) {
+  .pg-hero:has(.pg-hero-img--whitelabel)::before { background: linear-gradient(90deg, rgba(10, 24, 11, .55) 0%, rgba(10, 24, 11, .5) 45%, rgba(10, 24, 11, .28) 62%, rgba(10, 24, 11, 0) 76%), linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .35) 35%, rgba(10, 24, 11, .55) 70%, rgba(10, 24, 11, .82) 100%); }
+}
+@media (max-width: 860px) {
+  .pg-hero-img--whitelabel { object-position: 66% 50%; }
+  /* the trail of pages wraps onto the white pouch there: the shade holds deeper through that band */
+  .pg-hero:has(.pg-hero-img--whitelabel)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .62) 35%, rgba(10, 24, 11, .7) 55%, rgba(10, 24, 11, .86) 100%); }
+}
