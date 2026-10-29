@@ -1769,3 +1769,14 @@ h1, h2, h3, h4, .pr-name, .door-t, .next-t, .types-h a, .wy-big, .svp-big, .ftr-
   .pg-hero-img--nonbasmati { object-position: 72% 50%; }
   .pg-hero:has(.pg-hero-img--nonbasmati)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
 }
+
+/* We Make Your Brand page head (client photo, 29 Oct 2026): the pouches, bowl and box stand on the right; below about
+   1700px the cover crop brings the kraft pouch in behind the title, so a soft shade from the left dims it there */
+.pg-hero-img--brand { object-position: 100% 50%; }
+@media (min-width: 861px) and (max-width: 1700px) {
+  .pg-hero:has(.pg-hero-img--brand)::before { background: linear-gradient(90deg, rgba(10, 24, 11, .5) 0%, rgba(10, 24, 11, .42) 38%, rgba(10, 24, 11, 0) 58%), linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .35) 35%, rgba(10, 24, 11, .55) 70%, rgba(10, 24, 11, .82) 100%); }
+}
+@media (max-width: 860px) {
+  .pg-hero-img--brand { object-position: 68% 50%; }
+  .pg-hero:has(.pg-hero-img--brand)::before { background: linear-gradient(180deg, rgba(10, 24, 11, .62) 0%, rgba(10, 24, 11, .5) 35%, rgba(10, 24, 11, .66) 55%, rgba(10, 24, 11, .86) 100%); }
+}
